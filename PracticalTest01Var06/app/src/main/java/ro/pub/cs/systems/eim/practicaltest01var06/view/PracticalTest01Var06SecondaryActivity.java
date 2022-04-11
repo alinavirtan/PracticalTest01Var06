@@ -82,8 +82,6 @@ public class PracticalTest01Var06SecondaryActivity extends AppCompatActivity {
             String nr2 = intent.getStringExtra(Constants.DATA2);
             String nr3 = intent.getStringExtra(Constants.DATA3);
 
-            Toast.makeText(getApplicationContext(), nr1 + " " + nr2 + " " + nr3 + " "+ count_checks, Toast.LENGTH_LONG).show();
-
             if (checkEquality(nr1, nr2, nr3) == true) {
 
                 if (count_checks == 0) {

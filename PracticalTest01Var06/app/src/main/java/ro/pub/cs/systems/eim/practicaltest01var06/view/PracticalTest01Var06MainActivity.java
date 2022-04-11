@@ -2,8 +2,11 @@ package ro.pub.cs.systems.eim.practicaltest01var06.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -14,6 +17,7 @@ import java.util.Random;
 
 import ro.pub.cs.systems.eim.practicaltest01var06.R;
 import ro.pub.cs.systems.eim.practicaltest01var06.general.Constants;
+import ro.pub.cs.systems.eim.practicaltest01var06.service.PracticalTest01Var06Service;
 
 public class PracticalTest01Var06MainActivity extends AppCompatActivity {
     private Button playBtn, navigateBtn;
@@ -22,6 +26,7 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
     private Random random = new Random();
     private int count_checked = 0;
     private int score = 0;
+    private int serviceStatus = Constants.SERVICE_STOPPED;
 
     private ButtonClickListener buttonClickListener = new ButtonClickListener();
 
@@ -110,7 +115,18 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
             if (savedInstanceState.containsKey(Constants.SAVED_SCORE)) {
                 score = savedInstanceState.getInt(Constants.SAVED_SCORE);
             }
+        } else {
+            score = 0;
         }
+
+//        if (score > 300 && serviceStatus == Constants.SERVICE_STOPPED) {
+//            Intent intent = new Intent(getApplicationContext(), PracticalTest01Var06Service.class);
+//            intent.putExtra(Constants.SERVICE_SCORE, score);
+//            getApplicationContext().startService(intent);
+//            serviceStatus = Constants.SERVICE_STARTED;
+//        }
+
+        Toast.makeText(this, "Total Score " + score, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -135,4 +151,31 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
             score =  savedInstanceState.getInt(Constants.SAVED_SCORE);
         }
     }
+
+//    private MessageBroadcastReceiver messageBroadcastReceiver = new MessageBroadcastReceiver();
+//    private class MessageBroadcastReceiver extends BroadcastReceiver {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            Log.d(Constants.BROADCAST_RECEIVER_TAG, intent.getStringExtra(Constants.BROADCAST_RECEIVER_EXTRA));
+//        }
+//    }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        registerReceiver(messageBroadcastReceiver, null);
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        unregisterReceiver(messageBroadcastReceiver);
+//        super.onPause();
+//    }
+//
+//    @Override
+//    protected void onDestroy() {
+//        Intent intent = new Intent(this, PracticalTest01Var06Service.class);
+//        stopService(intent);
+//        super.onDestroy();
+//    }
 }
